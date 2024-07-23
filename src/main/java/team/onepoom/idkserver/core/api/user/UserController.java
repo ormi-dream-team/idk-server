@@ -15,12 +15,12 @@ import team.onepoom.idkserver.core.domain.common.Provider;
 @RequestMapping("api/users")
 public class UserController implements UserApi {
 
-    @PostMapping
+    @PostMapping("join")
     public void join(@RequestBody CreateUserRequest request) {
 
     }
 
-    @DeleteMapping
+    @DeleteMapping("me")
     public void resign(Provider provider) {
 
     }
