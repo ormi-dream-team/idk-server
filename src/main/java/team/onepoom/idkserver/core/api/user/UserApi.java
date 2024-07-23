@@ -16,7 +16,7 @@ interface UserApi {
         @ApiResponse(responseCode = "403", description = "비로그인, 정지 사용자일 경우, 작성자가 아닐 경우"),
         @ApiResponse(responseCode = "401", description = "로그인 만료일 경우")})
     void join(@RequestBody CreateUserRequest request);
-    @Operation(summary = "회원가입", description = "비로그인 사용자가 회원가입하는 API", tags = { "사용자" })
+    @Operation(summary = "회원탈퇴", description = "로그인 사용자가 탈퇴를 요청하는 API", tags = { "사용자" })
     @ApiResponses(value = { @ApiResponse(responseCode = "400", description = "이메일 형식 검수, 비밀번호 8자 이상, 닉네임 2자 이상"),
         @ApiResponse(responseCode = "404", description = "질문을 찾을 수 없을 경우"),
         @ApiResponse(responseCode = "403", description = "비로그인, 정지 사용자일 경우, 작성자가 아닐 경우"),
