@@ -16,11 +16,6 @@ import team.onepoom.idkserver.core.domain.common.Provider;
 @RequestMapping("api/answers")
 class AnswerController implements AnswerApi{
 
-    @PostMapping
-    public void create(Provider provider, @RequestBody CreateAnswerRequest request) {
-
-    }
-
     @PostMapping("{id}/selections")
     public void select(@PathVariable long id, Provider provider) {
 

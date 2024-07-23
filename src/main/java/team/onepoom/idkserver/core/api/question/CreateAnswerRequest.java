@@ -1,4 +1,4 @@
-package team.onepoom.idkserver.core.api.answer;
+package team.onepoom.idkserver.core.api.question;
 
 
 import jakarta.validation.constraints.NotBlank;

@@ -11,13 +11,6 @@ import team.onepoom.idkserver.core.domain.common.Provider;
 
 interface AnswerApi {
 
-    @Operation(summary = "답변 생성", description = "로그인 사용자가 답변을 작성하는 API", tags = {"답변"})
-    @ApiResponses(value = {@ApiResponse(responseCode = "400", description = "내용 2자 이상"),
-        @ApiResponse(responseCode = "404", description = "답변을 찾을 수 없을 경우"),
-        @ApiResponse(responseCode = "403", description = "로그인 사용자가 아닐 경우"),
-        @ApiResponse(responseCode = "401", description = "로그인 만료일 경우")})
-    void create(Provider provider, @RequestBody CreateAnswerRequest request);
-
     @Operation(summary = "답변 채택", description = "질문 작성자가 답변을 채택하는 API", tags = {"답변", "채택"})
     @ApiResponses(value = {@ApiResponse(responseCode = "404", description = "답변을 찾을 수 없을 경우"),
         @ApiResponse(responseCode = "403", description = "질문 작성자가 아닌 경우"),

@@ -16,8 +16,15 @@ import team.onepoom.idkserver.core.domain.common.Provider;
 @RequestMapping("api/questions")
 class QuestionController implements QuestionApi{
 
+
+    @Override
+    @PostMapping("{id}/answers")
+    public void createAnser(long id, Provider provider, CreateAnswerRequest request) {
+
+    }
+
     @PostMapping
-    public void create(Provider provider, @RequestBody CreateQuestionRequest request) {
+    public void createAnser(Provider provider, @RequestBody CreateQuestionRequest request) {
 
     }
 
