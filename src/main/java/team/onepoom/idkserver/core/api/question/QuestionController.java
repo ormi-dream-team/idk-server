@@ -51,4 +51,10 @@ class QuestionController implements QuestionApi{
     public Page<FindQuestionResponse> findMyQuestions(Provider provider, Pageable pageable) {
         return null;
     }
+
+    @Override
+    @PostMapping("{id}/reports")
+    public void report(Provider provider, @PathVariable long id) {
+
+    }
 }

@@ -64,4 +64,10 @@ interface QuestionApi {
         @ApiResponse(responseCode = "401", description = "로그인 만료일 경우"),
         @ApiResponse(responseCode = "403", description = "비로그인 상태일 경우")})
     Page<FindQuestionResponse> findMyQuestions(Provider provider, Pageable pageable);
+
+    @Operation(summary = "질문 신고", description = "로그인 사용자가 질문을 신고하는 API", tags = {
+        "질문", "신고"})
+    @ApiResponses(value = {@ApiResponse(responseCode = "403", description = "로그인 사용자가 아닐 경우"),
+        @ApiResponse(responseCode = "401", description = "로그인 만료일 경우")})
+    void report(Provider provider, @PathVariable long id);
 }
