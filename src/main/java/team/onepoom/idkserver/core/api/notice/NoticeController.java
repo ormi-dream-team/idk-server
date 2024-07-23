@@ -42,6 +42,7 @@ class NoticeController implements NoticeApi{
     }
 
     @Override
+    @GetMapping("mini")
     public List<FindMiniNoticeResponse> findMiniNotices(Pageable pageable) {
         return null;
     }
