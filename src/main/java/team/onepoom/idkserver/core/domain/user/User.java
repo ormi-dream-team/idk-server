@@ -1,4 +1,4 @@
-package team.onepoom.idkserver.core.domain;
+package team.onepoom.idkserver.core.domain.user;
 
 
 import jakarta.persistence.Column;
