@@ -20,7 +20,7 @@ public class QuestionRepositoryImpl implements QuestionRepositoryCustom {
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public Page<GetQuestionResponse> findQuestions(FindQuestionQuery findQuestionQuery, Pageable pageable) { //todo 불린빌더 쿼리스트링 없을 경우 처리
+    public Page<GetQuestionResponse> findQuestions(FindQuestionQuery findQuestionQuery, Pageable pageable) {
 
         List<GetQuestionResponse> questions = queryFactory
             .select(new QGetQuestionResponse(QQuestion.question))
