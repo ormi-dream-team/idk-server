@@ -1,10 +1,9 @@
 package team.onepoom.idkserver.core.api.question;
 
-import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import team.onepoom.idkserver.core.domain.User;
-import team.onepoom.idkserver.core.domain.common.Role;
+import team.onepoom.idkserver.core.domain.user.User;
+
 
 @Getter
 @NoArgsConstructor

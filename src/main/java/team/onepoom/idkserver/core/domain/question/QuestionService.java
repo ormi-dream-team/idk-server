@@ -1,6 +1,5 @@
 package team.onepoom.idkserver.core.domain.question;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -11,16 +10,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import team.onepoom.idkserver.core.api.question.CreateQuestionRequest;
 import team.onepoom.idkserver.core.api.question.FindQuestionQuery;
-import team.onepoom.idkserver.core.api.question.FindQuestionResponse;
 import team.onepoom.idkserver.core.api.question.GetOneQuestionResponse;
 import team.onepoom.idkserver.core.api.question.ModifyQuestionRequest;
 import team.onepoom.idkserver.core.api.question.QuestionDTO;
-import team.onepoom.idkserver.core.domain.User;
 import team.onepoom.idkserver.core.domain.common.Provider;
 import team.onepoom.idkserver.core.domain.common.Role;
 import team.onepoom.idkserver.core.domain.exception.QuestionForbiddenException;
 import team.onepoom.idkserver.core.domain.exception.QuestionNotFoundException;
-import team.onepoom.idkserver.core.domain.exception.UserNotFoundException;
+import team.onepoom.idkserver.core.domain.user.User;
 
 @Service
 @Transactional(readOnly = true)
@@ -33,11 +30,8 @@ public class QuestionService {
     @Transactional
     public void createQuestion(Provider provider, CreateQuestionRequest request) {
         User user = new User(provider.id());
-        Question question = Question.builder()
-            .user(user)
-            .title(request.title())
-            .content(request.content())
-            .build();
+        Question question = Question.builder().user(user).title(request.title())
+            .content(request.content()).build();
         questionRepository.save(question);
     }
 
@@ -47,15 +41,13 @@ public class QuestionService {
             .orElseThrow(() -> new QuestionNotFoundException(id));
 
         return new GetOneQuestionResponse(id, provider, question.getTitle(), question.getContent(),
-            question.isSelect(), 0, null, null, question.getCreatedAt(),
-            question.getUpdatedAt());
+            question.isSelect(), 0, null, null, question.getCreatedAt(), question.getUpdatedAt());
     }
 
     //질문 목록 조회
     public Page<QuestionDTO> findQuestions(FindQuestionQuery query, Pageable pageable) {
-        List<QuestionDTO> questions = questionRepository.findByTitleContains(query.title(), pageable).stream()
-            .map(QuestionDTO::new)
-            .collect(Collectors.toList());
+        List<QuestionDTO> questions = questionRepository.findByTitleContains(query.title(),
+            pageable).stream().map(QuestionDTO::new).collect(Collectors.toList());
 
         return new PageImpl<>(questions, pageable, questions.size());
     }

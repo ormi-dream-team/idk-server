@@ -14,8 +14,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import team.onepoom.idkserver.core.api.question.ModifyQuestionRequest;
-import team.onepoom.idkserver.core.domain.User;
 import team.onepoom.idkserver.core.domain.common.BaseEntity;
+import team.onepoom.idkserver.core.domain.user.User;
 
 @Entity
 @Getter
