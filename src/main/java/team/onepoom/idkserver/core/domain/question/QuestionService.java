@@ -1,18 +1,15 @@
 package team.onepoom.idkserver.core.domain.question;
 
-import java.util.List;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import team.onepoom.idkserver.core.api.question.CreateQuestionRequest;
 import team.onepoom.idkserver.core.api.question.FindQuestionQuery;
-import team.onepoom.idkserver.core.api.question.GetOneQuestionResponse;
+import team.onepoom.idkserver.core.api.question.GetQuestionDetailResponse;
+import team.onepoom.idkserver.core.api.question.GetQuestionResponse;
 import team.onepoom.idkserver.core.api.question.ModifyQuestionRequest;
-import team.onepoom.idkserver.core.api.question.QuestionDTO;
 import team.onepoom.idkserver.core.domain.common.Provider;
 import team.onepoom.idkserver.core.domain.common.Role;
 import team.onepoom.idkserver.core.domain.exception.QuestionForbiddenException;
@@ -36,20 +33,21 @@ public class QuestionService {
     }
 
     //단일 질문 조회
-    public GetOneQuestionResponse getOneQuestion(Provider provider, Long id) {
+    public GetQuestionDetailResponse getOneQuestion(Provider provider, Long id) { //todo provider -> 답변 좋아요 체크
         Question question = questionRepository.findById(id)
             .orElseThrow(() -> new QuestionNotFoundException(id));
 
-        return new GetOneQuestionResponse(id, provider, question.getTitle(), question.getContent(),
-            question.isSelect(), 0, null, null, question.getCreatedAt(), question.getUpdatedAt());
+        return new GetQuestionDetailResponse(question);
     }
 
     //질문 목록 조회
-    public Page<QuestionDTO> findQuestions(FindQuestionQuery query, Pageable pageable) {
-        List<QuestionDTO> questions = questionRepository.findByTitleContains(query.title(),
-            pageable).stream().map(QuestionDTO::new).collect(Collectors.toList());
+    public Page<GetQuestionResponse> findQuestions(FindQuestionQuery query, Pageable pageable) {
+        return questionRepository.findQuestions(query, pageable);
+    }
 
-        return new PageImpl<>(questions, pageable, questions.size());
+    //내 질문 조회
+    public Page<GetQuestionResponse> findMyQuestions(Provider provider, Pageable pageable) {
+        return questionRepository.findMyQuestions(provider, pageable);
     }
 
 
