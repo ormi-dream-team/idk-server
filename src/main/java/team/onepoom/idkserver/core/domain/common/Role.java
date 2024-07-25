@@ -1,5 +1,12 @@
 package team.onepoom.idkserver.core.domain.common;
 
-public enum Role {
-    ANONYMOUS, USER, ADMIN, SUSPEND
+import org.springframework.security.core.GrantedAuthority;
+
+public enum Role implements GrantedAuthority {
+    ANONYMOUS, USER, ADMIN, SUSPEND;
+
+    @Override
+    public String getAuthority() {
+        return "ROLE_"+name();
+    }
 }
