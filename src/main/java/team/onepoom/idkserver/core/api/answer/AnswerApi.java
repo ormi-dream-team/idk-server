@@ -40,13 +40,13 @@ interface AnswerApi {
         "답변"})
     @ApiResponses(value = {@ApiResponse(responseCode = "403", description = "로그인 사용자가 아닐 경우"),
         @ApiResponse(responseCode = "401", description = "로그인 만료일 경우")})
-    Page<FindMyAnswerResponse> findQuestions(Provider provider, Pageable pageable);
+    Page<FindMyAnswerResponse> findAnswers(Provider provider, Pageable pageable);
 
     @Operation(summary = "답변 신고", description = "로그인 사용자가 답변을 신고하는 API", tags = {
         "답변", "신고"})
     @ApiResponses(value = {@ApiResponse(responseCode = "403", description = "로그인 사용자가 아닐 경우"),
         @ApiResponse(responseCode = "401", description = "로그인 만료일 경우")})
-    void reportQuestion(Provider provider, @PathVariable long id);
+    void reportAnswer(Provider provider, @PathVariable long id);
 
     @Operation(summary = "답변 좋아요", description = "로그인 사용자가 답변을 좋아요하는 API", tags = {
         "답변", "좋아요"})
