@@ -20,14 +20,14 @@ interface QuestionApi {
         @ApiResponse(responseCode = "404", description = "답변을 찾을 수 없을 경우"),
         @ApiResponse(responseCode = "403", description = "로그인 사용자가 아닐 경우"),
         @ApiResponse(responseCode = "401", description = "로그인 만료일 경우")})
-    void createAnser(@PathVariable long id, Provider provider, @RequestBody CreateAnswerRequest request);
+    void createQuestion(@PathVariable long id, Provider provider, @RequestBody CreateAnswerRequest request);
 
     @PostMapping
     @Operation(summary = "질문 작성", description = "로그인 사용자가 질문을 작성하는 API", tags = { "질문" })
     @ApiResponses(value = { @ApiResponse(responseCode = "400", description = "제목 2자 이상, 내용 2자 이상, 태그 10개 이하 "),
         @ApiResponse(responseCode = "403", description = "비로그인, 정지 사용자일 경우"),
         @ApiResponse(responseCode = "401", description = "로그인 만료일 경우")})
-    void createAnser(Provider provider, @RequestBody CreateQuestionRequest request);
+    void createQuestion(Provider provider, @RequestBody CreateQuestionRequest request);
 
     @PutMapping("{id}")
     @Operation(summary = "질문 수정", description = "질문 작성자가 질문을 수정하는 API", tags = { "질문" })
