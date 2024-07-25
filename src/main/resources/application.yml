@@ -14,3 +14,8 @@ spring:
 springdoc:
   swagger-ui:
     use-root-path: true
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG
