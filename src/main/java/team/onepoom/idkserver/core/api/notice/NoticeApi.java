@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import team.onepoom.idkserver.core.domain.common.Provider;
 
 interface NoticeApi {
 
@@ -15,7 +16,7 @@ interface NoticeApi {
     @ApiResponses(value = { @ApiResponse(responseCode = "400", description = "제목 2자 이상, 내용 2자 이상"),
         @ApiResponse(responseCode = "403", description = "관리자가 아닐 경우"),
         @ApiResponse(responseCode = "401", description = "로그인 만료일 경우")})
-    void create(@RequestBody CreateNoticeRequest request);
+    void create(Provider provider, @RequestBody CreateNoticeRequest request);
 
     @Operation(summary = "공지사항 수정", description = "관리자가 공지사항을 수정하는 API", tags = { "공지사항" })
     @ApiResponses(value = { @ApiResponse(responseCode = "400", description = "제목 2자 이상, 내용 2자 이상"),
