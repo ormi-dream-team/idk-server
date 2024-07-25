@@ -50,20 +50,20 @@ interface QuestionApi {
     @ApiResponses(value = {
         @ApiResponse(responseCode = "404", description = "질문을 찾을 수 없을 경우"),
         @ApiResponse(responseCode = "401", description = "로그인 만료일 경우")})
-    GetOneQuestionResponse getQuestion(Provider provider, @PathVariable long id);
+    GetQuestionDetailResponse getQuestion(Provider provider, @PathVariable long id);
 
     @GetMapping
     @Operation(summary = "질문 목록 조회", description = "모든 사용자가 질문을 조회하는 API", tags = { "질문" })
     @ApiResponses(value = {
         @ApiResponse(responseCode = "404", description = "질문을 찾을 수 없을 경우"),
         @ApiResponse(responseCode = "401", description = "로그인 만료일 경우")})
-    Page<FindQuestionResponse> findQuestions(FindQuestionQuery query, Pageable pageable);
+    Page<GetQuestionResponse> findQuestions(FindQuestionQuery query, Pageable pageable);
     @GetMapping("me")
     @Operation(summary = "내가 한 질문 목록 조회", description = "로그인 사용자가 자신의 질문 목록을 조회하는 API", tags = { "질문" })
     @ApiResponses(value = {
         @ApiResponse(responseCode = "401", description = "로그인 만료일 경우"),
         @ApiResponse(responseCode = "403", description = "비로그인 상태일 경우")})
-    Page<FindQuestionResponse> findMyQuestions(Provider provider, Pageable pageable);
+    Page<GetQuestionResponse> findMyQuestions(Provider provider, Pageable pageable);
 
     @Operation(summary = "질문 신고", description = "로그인 사용자가 질문을 신고하는 API", tags = {
         "질문", "신고"})
