@@ -6,4 +6,5 @@ import org.hibernate.validator.constraints.Length;
 
 record CreateAnswerRequest(@NotBlank @Length(min = 2) String content) {
 
+
 }
