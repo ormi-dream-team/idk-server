@@ -24,10 +24,7 @@ public class QuestionService {
     //질문 작성
     @Transactional
     public void createQuestion(Provider provider, CreateQuestionRequest request) {
-        User writer = new User(provider.id());
-        Question question = Question.builder().writer(writer).title(request.title())
-            .content(request.content()).build();
-        questionRepository.save(question);
+        questionRepository.save(Question.of(provider, request));
     }
 
     //단일 질문 조회

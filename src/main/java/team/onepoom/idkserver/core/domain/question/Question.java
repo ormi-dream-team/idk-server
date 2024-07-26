@@ -13,6 +13,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import team.onepoom.idkserver.core.api.question.CreateQuestionRequest;
 import team.onepoom.idkserver.core.api.question.ModifyQuestionRequest;
 import team.onepoom.idkserver.core.domain.common.BaseEntity;
 import team.onepoom.idkserver.core.domain.common.Provider;
@@ -52,6 +53,14 @@ public class Question extends BaseEntity {
         this.title = title;
         this.content = content;
         this.isSelect = false;
+    }
+
+    public static Question of(Provider provider, CreateQuestionRequest request) {
+        return Question.builder()
+            .writer(new User(provider.id()))
+            .title(request.title())
+            .content(request.content())
+            .build();
     }
 
     //수정 메서드
