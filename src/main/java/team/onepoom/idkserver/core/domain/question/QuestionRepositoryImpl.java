@@ -38,7 +38,7 @@ public class QuestionRepositoryImpl implements QuestionRepositoryCustom {
         List<GetQuestionResponse> questions = queryFactory
             .select(new QGetQuestionResponse(QQuestion.question))
             .from(QQuestion.question)
-            .where(QQuestion.question.user.id.eq(provider.id()))
+            .where(QQuestion.question.writer.id.eq(provider.id()))
             .limit(pageable.getPageSize())
             .offset(pageable.getOffset())
             .fetch();

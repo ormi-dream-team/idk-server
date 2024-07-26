@@ -29,7 +29,7 @@ public class Question extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "writer_id", nullable = false)
-    private User user;
+    private User writer;
 
     @Column(nullable = false, length = 100)
     private String title;
@@ -44,8 +44,8 @@ public class Question extends BaseEntity {
 
     //생성 메서드
     @Builder
-    Question(User user, String title, String content) {
-        this.user = user;
+    Question(User writer, String title, String content) {
+        this.writer = writer;
         this.title = title;
         this.content = content;
         this.isSelect = false;

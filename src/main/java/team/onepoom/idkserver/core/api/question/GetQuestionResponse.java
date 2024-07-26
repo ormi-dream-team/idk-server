@@ -19,7 +19,7 @@ public class GetQuestionResponse {
     @JsonProperty("isSelect")
     private boolean select;
     private int answerCount;
-//    private List<TagDTO> tags; //todo
+//    private List<TagDTO> tags; //todo 태그 엔티티 개발 시 작성
     private ZonedDateTime createdAt;
     private ZonedDateTime updatedAt;
     private ZonedDateTime reportedAt;
@@ -27,11 +27,11 @@ public class GetQuestionResponse {
     @QueryProjection
     public GetQuestionResponse(Question question) {
         this.id = question.getId();
-        this.writer = question.getUser().toProvider();
+        this.writer = question.getWriter().toProvider();
         this.title = question.getTitle();
         this.content = question.getContent();
         this.select = question.isSelect();
-        this.answerCount = 0; //todo
+        this.answerCount = 0; //todo 답변 엔티티 개발 시 작성
         this.createdAt = question.getCreatedAt();
         this.updatedAt = question.getUpdatedAt();
         this.reportedAt = question.getReportedAt();

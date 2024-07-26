@@ -26,8 +26,8 @@ public class QuestionService {
     //질문 작성
     @Transactional
     public void createQuestion(Provider provider, CreateQuestionRequest request) {
-        User user = new User(provider.id());
-        Question question = Question.builder().user(user).title(request.title())
+        User writer = new User(provider.id());
+        Question question = Question.builder().writer(writer).title(request.title())
             .content(request.content()).build();
         questionRepository.save(question);
     }
@@ -74,14 +74,14 @@ public class QuestionService {
 
     //질문 수정 권한 검증
     private void validateModifyAuthority(Provider provider, Question question) {
-        if (provider.id() != question.getUser().getId() || provider.roles().contains(Role.ADMIN)) {
+        if (provider.id() != question.getWriter().getId() || provider.roles().contains(Role.ADMIN)) {
             throw new QuestionForbiddenException(question.getId());
         }
     }
 
     //질문 삭제 권한 검증
     private void validateDeleteAuthority(Provider provider, Question question) {
-        if (provider.id() != question.getUser().getId() || provider.roles().contains(Role.ADMIN)) {
+        if (provider.id() != question.getWriter().getId() || provider.roles().contains(Role.ADMIN)) {
             throw new QuestionForbiddenException(question.getId());
         }
     }
