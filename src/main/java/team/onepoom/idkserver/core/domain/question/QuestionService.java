@@ -11,8 +11,6 @@ import team.onepoom.idkserver.core.api.question.GetQuestionDetailResponse;
 import team.onepoom.idkserver.core.api.question.GetQuestionResponse;
 import team.onepoom.idkserver.core.api.question.ModifyQuestionRequest;
 import team.onepoom.idkserver.core.domain.common.Provider;
-import team.onepoom.idkserver.core.domain.common.Role;
-import team.onepoom.idkserver.core.domain.exception.QuestionForbiddenException;
 import team.onepoom.idkserver.core.domain.exception.QuestionNotFoundException;
 import team.onepoom.idkserver.core.domain.user.User;
 
@@ -56,7 +54,7 @@ public class QuestionService {
     public void modifyQuestion(Provider provider, long id, ModifyQuestionRequest request) {
         Question question = questionRepository.findById(id)
             .orElseThrow(() -> new QuestionNotFoundException(id));
-        validateModifyAuthority(provider, question);
+        question.checkQuestionOwner(provider, question);
         question.modifyQuestion(request);
     }
 
@@ -65,30 +63,9 @@ public class QuestionService {
     public void deleteQuestion(Provider provider, Long id) {
         Question question = questionRepository.findById(id)
             .orElseThrow(() -> new QuestionNotFoundException(id));
-        validateDeleteAuthority(provider, question);
-        validateDeleteCondition(question);
+        question.checkQuestionOwner(provider, question);
+        question.validateDeleteCondition(question);
         questionRepository.delete(question);
-    }
-
-    //==검증 메서드==//
-
-    //질문 수정 권한 검증
-    private void validateModifyAuthority(Provider provider, Question question) {
-        if (provider.id() != question.getWriter().getId() || provider.roles().contains(Role.ADMIN)) {
-            throw new QuestionForbiddenException(question.getId());
-        }
-    }
-
-    //질문 삭제 권한 검증
-    private void validateDeleteAuthority(Provider provider, Question question) {
-        if (provider.id() != question.getWriter().getId() || provider.roles().contains(Role.ADMIN)) {
-            throw new QuestionForbiddenException(question.getId());
-        }
-    }
-
-    //Todo 질문 삭제 조건 검증
-    private void validateDeleteCondition(Question question) {
-        //질문의 답변이 존재할 시 Exception
     }
 
 }

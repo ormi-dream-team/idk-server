@@ -15,6 +15,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import team.onepoom.idkserver.core.api.question.ModifyQuestionRequest;
 import team.onepoom.idkserver.core.domain.common.BaseEntity;
+import team.onepoom.idkserver.core.domain.common.Provider;
+import team.onepoom.idkserver.core.domain.common.Role;
+import team.onepoom.idkserver.core.domain.exception.QuestionForbiddenException;
 import team.onepoom.idkserver.core.domain.user.User;
 
 @Entity
@@ -60,5 +63,17 @@ public class Question extends BaseEntity {
     //답변 채택 시
     public void answerSelected() {
         this.isSelect = true;
+    }
+
+    //질문 소유자 권한 체크
+    public void checkQuestionOwner(Provider provider, Question question) {
+        if (provider.id() != question.getWriter().getId() || provider.roles().contains(Role.ADMIN)) {
+            throw new QuestionForbiddenException(question.getId());
+        }
+    }
+
+    //Todo 질문 삭제 조건 검증
+    public void validateDeleteCondition(Question question) {
+        //질문의 답변이 존재할 시 Exception
     }
 }
