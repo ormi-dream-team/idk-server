@@ -1,0 +1,7 @@
+### GET request to example server
+GET localhost:8080/api/notices
+content-type: application/json
+
+{
+}
+###
